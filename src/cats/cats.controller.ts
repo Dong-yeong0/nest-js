@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Req } from '@nestjs/common';
+import { Request } from 'express';
 import { CatsService } from './cats.service';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { UpdateCatDto } from './dto/update-cat.dto';
@@ -13,12 +14,14 @@ export class CatsController {
   }
 
   @Get()
-  findAll() {
+  findAll(@Req() request: Request): string {
+    console.log(request);
     return this.catsService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
+    console.log(id);
     return this.catsService.findOne(+id);
   }
 
